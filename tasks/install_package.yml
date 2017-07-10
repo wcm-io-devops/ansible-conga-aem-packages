@@ -1,0 +1,29 @@
+- name: "Deploy AEM package: {{ item.path | basename }}"
+  shell: >
+    {{ conga_maven_cmd }} {{ conga_packages_plugin }}:install
+    -Dvault.serviceURL=http://{{ inventory_hostname }}:{{ aem_port }}/crx/packmgr/service
+    -Dvault.file={{ item.path }}
+    -Dvault.userId={{ aem_admin_user }}
+    -Dvault.password={{ aem_admin_password }}
+    -Dvault.delayAfterInstallSec={{ item.delayAfterInstallSec | default('0') }}
+    -Dvault.force={{ item.force | default('true') }}
+    -Dvault.recursive={{ item.recursive | default('true') }}
+  args:
+    chdir: "{{ conga_config_path }}"
+  delegate_to: "{{ conga_host }}"
+  become: false
+  register: _mvn_result
+  changed_when: conga_packages_changed_output in _mvn_result.stdout
+
+  # Restart if the package has actually been installed and it has been declared as necessary and
+  # allow overriding the requiresRestart property from the package metadata in the CONGA configuration
+- name: Restart AEM if required by package metadata.
+  command: /bin/true
+  notify: restart aem
+  when: (conga_packages_changed_output in _mvn_result.stdout) and
+        (item.requiresRestart |
+         default(item.aemContentPackageProperties.requiresRestart is defined and
+         item.aemContentPackageProperties.requiresRestart | bool))
+
+- name: Flush pending (restart) handlers before installation of next package.
+  meta: flush_handlers

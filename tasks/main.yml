@@ -1,0 +1,7 @@
+- name: Setup packages list.
+  set_fact:
+    _packages: "{{ packages | default(conga_packages) }}"
+
+- name: "Deploy AEM packages for role: {{ conga_role }}"
+  include: install_package.yml
+  with_items: "{{ _packages }}"

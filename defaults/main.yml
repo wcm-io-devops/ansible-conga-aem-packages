@@ -1,0 +1,4 @@
+conga_maven_cmd: mvn
+conga_host: localhost
+conga_packages_plugin: io.wcm.maven.plugins:wcmio-content-package-maven-plugin:1.5.0
+conga_packages_changed_output: "Package installed"
