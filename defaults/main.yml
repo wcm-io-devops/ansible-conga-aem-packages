@@ -2,3 +2,6 @@ conga_maven_cmd: mvn
 conga_host: localhost
 conga_packages_plugin: io.wcm.maven.plugins:wcmio-content-package-maven-plugin:1.6.0
 conga_packages_changed_output: "Package installed"
+
+aem_admin_user: admin
+aem_admin_password: admin
