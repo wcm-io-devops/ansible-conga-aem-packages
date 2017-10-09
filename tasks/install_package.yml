@@ -6,7 +6,7 @@
     -Dvault.userId={{ aem_admin_user }}
     -Dvault.password={{ aem_admin_password }}
     -Dvault.delayAfterInstallSec={{ item.delayAfterInstallSec | default('0') }}
-    -Dvault.force={{ item.force | default('true') }}
+    -Dvault.force={{ item.force | default('false') }}
     -Dvault.recursive={{ item.recursive | default('true') }}
   args:
     chdir: "{{ conga_config_path }}"
