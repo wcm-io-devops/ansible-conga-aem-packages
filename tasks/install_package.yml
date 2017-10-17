@@ -1,7 +1,7 @@
 - name: "Deploy AEM package: {{ item.path | basename }}"
   shell: >
     {{ conga_maven_cmd }} {{ conga_packages_plugin }}:install
-    -Dvault.serviceURL=http://{{ inventory_hostname }}:{{ aem_port }}/crx/packmgr/service
+    -Dvault.serviceURL={{ aem_packages_service_url }}
     -Dvault.file={{ item.path }}
     -Dvault.userId={{ aem_admin_user }}
     -Dvault.password={{ aem_admin_password }}

@@ -5,3 +5,5 @@ conga_packages_changed_output: "Package installed"
 
 aem_admin_user: admin
 aem_admin_password: admin
+
+aem_packages_service_url: "http://{{ inventory_hostname }}:{{ aem_port }}/crx/packmgr/service"
