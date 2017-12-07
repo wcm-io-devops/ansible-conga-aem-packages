@@ -1,3 +1,12 @@
+- name: "Set default vault force define for '{{ item.path | basename }}'"
+  set_fact:
+    _item_vault_force_define: ""
+
+- name: "Set vault force define for '{{ item.path | basename }}' to {{ item.force }}"
+  set_fact:
+    _item_vault_force_define: "-Dvault.force={{ item.force }}"
+  when: item.force is defined
+
 - name: "Deploy AEM package: {{ item.path | basename }}"
   shell: >
     {{ conga_maven_cmd }} {{ conga_packages_plugin }}:install
@@ -6,7 +15,7 @@
     -Dvault.userId={{ aem_admin_user }}
     -Dvault.password={{ aem_admin_password }}
     -Dvault.delayAfterInstallSec={{ item.delayAfterInstallSec | default('0') }}
-    -Dvault.force={{ item.force | default(omit) }}
+    {{ _item_vault_force_define }}
     -Dvault.recursive={{ item.recursive | default('true') }}
   args:
     chdir: "{{ conga_config_path }}"
