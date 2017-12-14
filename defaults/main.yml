@@ -1,9 +1,17 @@
-conga_maven_cmd: mvn
-conga_host: localhost
-conga_packages_plugin: io.wcm.maven.plugins:wcmio-content-package-maven-plugin:1.6.0
-conga_packages_changed_output: "Package installed"
+# Host to execute Maven on
+conga_aem_packages_maven_host: "{{ conga_host | default('localhost') }}"
+# Maven executable to use
+conga_aem_packages_maven_cmd: "{{ conga_maven_cmd | default('mvn') }}"
 
-aem_admin_user: admin
-aem_admin_password: admin
+# Version of the wcm.io content package maven plugin to use
+conga_aem_packages_plugin_version: 1.6.0
+# Output to expect when a package was actually installed/changed
+conga_aem_packages_changed_output: "Package installed"
 
-aem_packages_service_url: "http://{{ inventory_hostname }}:{{ aem_port }}/crx/packmgr/service"
+# Username and password to use for installing the package
+conga_aem_packages_user: admin
+conga_aem_packages_password: admin
+
+# Port and package manager service URL of the AEM instance
+conga_aem_packages_port: 4502
+conga_aem_packages_service_url: "http://{{ inventory_hostname }}:{{ conga_aem_packages_port }}/crx/packmgr/service"

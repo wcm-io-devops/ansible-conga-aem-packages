@@ -9,20 +9,21 @@
 
 - name: "Deploy AEM package: {{ item.path | basename }}"
   shell: >
-    {{ conga_maven_cmd }} {{ conga_packages_plugin }}:install
-    -Dvault.serviceURL={{ aem_packages_service_url }}
+    {{ conga_aem_packages_maven_cmd }}
+    io.wcm.maven.plugins:wcmio-content-package-maven-plugin:{{ conga_aem_packages_plugin_version }}:install
+    -Dvault.serviceURL={{ conga_aem_packages_service_url }}
     -Dvault.file={{ item.path }}
-    -Dvault.userId={{ aem_admin_user }}
-    -Dvault.password={{ aem_admin_password }}
+    -Dvault.userId={{ conga_aem_packages_user }}
+    -Dvault.password={{ conga_aem_packages_password }}
     -Dvault.delayAfterInstallSec={{ item.delayAfterInstallSec | default('0') }}
     {{ _item_vault_force_define }}
     -Dvault.recursive={{ item.recursive | default('true') }}
   args:
     chdir: "{{ conga_config_path }}"
-  delegate_to: "{{ conga_host }}"
+  delegate_to: "{{ conga_aem_packages_maven_host }}"
   become: false
   register: _mvn_result
-  changed_when: _mvn_result.stdout is defined and conga_packages_changed_output in _mvn_result.stdout
+  changed_when: _mvn_result.stdout is defined and conga_aem_packages_changed_output in _mvn_result.stdout
   #failed_when: "'BUILD FAILURE' in _mvn_result.stderr"
 
 - name: Fail if Maven stdout is undefined.
@@ -35,7 +36,7 @@
 - name: Restart AEM if required by package metadata.
   command: /bin/true
   notify: restart aem
-  when: (conga_packages_changed_output in _mvn_result.stdout) and
+  when: (conga_aem_packages_changed_output in _mvn_result.stdout) and
         (item.requiresRestart |
          default(item.aemContentPackageProperties.requiresRestart is defined and
          item.aemContentPackageProperties.requiresRestart | bool))
