@@ -11,10 +11,6 @@ This role requires Ansible 2.0 or higher. Maven must be installed since the role
 
 Available variables are listed below, along with their default values:
 
-	conga_aem_packages_port
-
-The port of the target AEM instance (required). This can be set explicitly, but the idea is to reuse it from a CONGA role in which the port is defined (e.g.  [`aem-cms`](https://github.com/wcm-io-devops/conga-aem-definitions/blob/develop/conga-aem-definitions/src/main/roles/aem-cms.yaml)) to make it automatically work for both author and publisher instances.
-
 	conga_aem_packages_maven_cmd: mvn
 
 Name of the Maven executable to use. 
@@ -26,9 +22,16 @@ Artifact ID and version of the Maven plugin.
 	conga_aem_packages_changed_output: "Package installed"
 
 The string to looks for in the output of the package plugin to determine if a package was actually installed or skipped because it was already installed. This is important to avoid unnecessary lengthy restarts (e.g. when a service pack is part of package list).
-	
-Additionally, the role expects the `conga_packages` variable to be set by the [conga-facts](https://github.com/wcm-io-devops/ansible-conga-facts) role (on which this role depends) to the list of packages from the CONGA configuration model.
 
+	conga_aem_packages_port: "{{ conga_config.quickstart.port }}"
+
+The port of the target AEM instance. It defaults to the port configured in the [`aem-cms`](https://github.com/wcm-io-devops/conga-aem-definitions/blob/develop/conga-aem-definitions/src/main/roles/aem-cms.yaml) role to make it automatically work for both author and publisher instances (provided that the package role inherits from this role so that it can access its configuration).
+
+	conga_aem_packages_service_url: "http://{{ inventory_hostname }}:{{ conga_aem_packages_port }}/crx/packmgr/service"
+
+The  package manager service URL the Maven plugin uses to poll the package state.
+
+Additionally, the role expects the `conga_packages` variable to be set by the [conga-facts](https://github.com/wcm-io-devops/ansible-conga-facts) role (on which this role depends) to the list of packages from the CONGA configuration model.
 
 ## Dependencies
 

@@ -13,5 +13,5 @@ conga_aem_packages_user: admin
 conga_aem_packages_password: admin
 
 # Port and package manager service URL of the AEM instance
-conga_aem_packages_port: 4502
+conga_aem_packages_port: "{{ conga_config.quickstart.port }}"
 conga_aem_packages_service_url: "http://{{ inventory_hostname }}:{{ conga_aem_packages_port }}/crx/packmgr/service"
