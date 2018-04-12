@@ -35,7 +35,14 @@ Additionally, the role expects the `conga_packages` variable to be set by the [c
 
 ## Dependencies
 
-This role depends on the [conga-facts](https://github.com/wcm-io-devops/ansible-conga-facts) role for supplying the list of packages to install. It also depends on the [ansible-aem-service](https://github.com/wcm-io-devops/ansible-aem-service) role for ensuring that the target AEM instance is started and restarting it if the package metadata declares that it is required.
+This role depends on the
+[conga-facts](https://github.com/wcm-io-devops/ansible-conga-facts) role
+for supplying the list of packages to install. It also depends on a role
+that provides a handler named "aem restart". This handler is normally
+provided by the
+[ansible-aem-service](https://github.com/wcm-io-devops/ansible-aem-service)
+role, which is used by the conga ansible automation when using the
+[ansible-conga-aem-cms](https://github.com/wcm-io-devops/ansible-conga-aem-cms) role.
 
 ## Example Playbook
 
