@@ -7,9 +7,6 @@
     _item_vault_force_define: "-Dvault.force={{ item.force }}"
   when: item.force is defined
 
-- pause:
-    prompt: "Continue Deploying AEM package: {{ item.path | basename }}?"
-
 - name: "Deploy AEM package: {{ item.path | basename }}"
   shell: >
     {{ conga_aem_packages_maven_cmd }}
