@@ -16,9 +16,9 @@ conga_aem_packages_password: admin
 conga_aem_packages_port: "{{ conga_config.quickstart.port }}"
 conga_aem_packages_service_url: "http://{{ inventory_hostname }}:{{ conga_aem_packages_port }}/crx/packmgr/service"
 
-# Bundle status URL to poll while waiting for installation is complete when package is using a installer bundle
+# Bundle status URL to poll while waiting for installation is complete when package is using a installer bundle (like AEM 6.3 SP2).
 conga_aem_bundle_status_url: "http://{{ inventory_hostname }}:{{ conga_aem_packages_port }}/system/console/bundles.json"
-# timeout to wait (10 minutes per default)
+# Timeout to wait (10 minutes per default) for installer bundle to be removed.
 conga_aem_bundle_status_timeout: 600
-# retry delay
+# The retry delay for calling the `conga_aem_bundle_status_url`.
 conga_aem_bundle_status_retry_delay: 10
