@@ -31,6 +31,18 @@ The port of the target AEM instance. It defaults to the port configured in the [
 
 The  package manager service URL the Maven plugin uses to poll the package state.
 
+    conga_aem_bundle_status_url: "http://{{ inventory_hostname }}:{{ conga_aem_packages_port }}/system/console/bundles.json"
+
+Bundle status URL to poll while waiting for installation is complete when package is using a installer bundle (like AEM 6.3 SP2).
+
+    conga_aem_bundle_status_timeout: 600
+
+Timeout to wait (10 minutes per default) for installer bundle to be removed.
+
+    conga_aem_bundle_status_retry_delay: 10
+
+The retry delay for calling the `conga_aem_bundle_status_url`.
+
 Additionally, the role expects the `conga_packages` variable to be set by the [conga-facts](https://github.com/wcm-io-devops/ansible-conga-facts) role (on which this role depends) to the list of packages from the CONGA configuration model.
 
 ## Dependencies
