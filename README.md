@@ -15,11 +15,11 @@ Available variables are listed below, along with their default values:
 
 Name of the Maven executable to use. 
 
-	conga_aem_packages_plugin_version: 1.6.0
+	conga_aem_packages_wcmio_content_package_maven_plugin_version: 1.6.0
 
-Artifact ID and version of the Maven plugin.
+The version of the wcm.io content package maven plugin to use.
 
-	conga_aem_packages_changed_output: "Package installed"
+	conga_aem_packages_wcmio_content_package_maven_plugin_changed_output: "Package installed"
 
 The string to looks for in the output of the package plugin to determine if a package was actually installed or skipped because it was already installed. This is important to avoid unnecessary lengthy restarts (e.g. when a service pack is part of package list).
 
