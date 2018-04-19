@@ -4,9 +4,9 @@ conga_aem_packages_maven_host: "{{ conga_host | default('localhost') }}"
 conga_aem_packages_maven_cmd: "{{ conga_maven_cmd | default('mvn') }}"
 
 # Version of the wcm.io content package maven plugin to use
-conga_aem_packages_plugin_version: 1.6.0
+conga_aem_packages_wcmio_content_package_maven_plugin_version: 1.6.0
 # Output to expect when a package was actually installed/changed
-conga_aem_packages_changed_output: "Package installed"
+conga_aem_packages_wcmio_content_package_maven_plugin_changed_output: "Package installed"
 
 # Username and password to use for installing the package
 conga_aem_packages_user: admin
