@@ -37,25 +37,6 @@
     msg: "{{ _mvn_result }}"
   when: _mvn_result.stdout is undefined
 
-- name: "Wait for installer bundle '{{ item.installerBundle }}' to be uninstalled (installation complete)"
-  uri:
-    url: "{{ conga_aem_bundle_status_url }}"
-    return_content: yes
-    force_basic_auth: yes
-    user: "{{ conga_aem_packages_user }}"
-    password: "{{ conga_aem_packages_password }}"
-    status_code: -1,200
-  register: result
-  until:
-    - result.content != ""
-    - result.content.find(item.installerBundle) == -1
-  retries: "{{ conga_aem_bundle_status_timeout // conga_aem_bundle_status_retry_delay }}"
-  delay: "{{ conga_aem_bundle_status_retry_delay }}"
-  when:
-    - item.installerBundle is defined
-    - item.installerBundle != ""
-    - conga_aem_packages_wcmio_content_package_maven_plugin_changed_output in _mvn_result.stdout
-
   # Restart if the package has actually been installed and it has been declared as necessary and
   # allow overriding the requiresRestart property from the package metadata in the CONGA configuration
 - name: Restart AEM if required by package metadata.
