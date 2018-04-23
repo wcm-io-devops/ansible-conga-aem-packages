@@ -11,9 +11,17 @@ This role requires Ansible 2.0 or higher. Maven must be installed since the role
 
 Available variables are listed below, along with their default values:
 
+    conga_aem_packages_maven_host: "{{ conga_host | default('localhost') }}"
+
+Host to execute Maven on
+
 	conga_aem_packages_maven_cmd: mvn
 
 Name of the Maven executable to use. 
+
+    # conga_aem_packages_maven_settings: ~/.m2/settings.xml
+
+Path of a custom settings file to use when running Maven
 
 	conga_aem_packages_wcmio_content_package_maven_plugin_version: 1.6.0
 

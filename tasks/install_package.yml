@@ -1,11 +1,16 @@
-- name: "Set default vault force define for '{{ item.path | basename }}'"
+- name: "Set default '_mvn_cmdline_args'."
   set_fact:
-    _item_vault_force_define: ""
+    _mvn_cmdline_args: ""
 
-- name: "Set vault force define for '{{ item.path | basename }}' to {{ item.force }}"
+- name: "Set vault force define for '{{ item.path | basename }}' to {{ item.force }} in _mvn_cmdline_args"
   set_fact:
-    _item_vault_force_define: "-Dvault.force={{ item.force }}"
+    _mvn_cmdline_args: "{{ _mvn_cmdline_args }} -Dvault.force={{ item.force }}"
   when: item.force is defined
+
+- name: Add custom Maven settings to _mvn_cmdline_args.
+  set_fact:
+    _mvn_cmdline_args: "{{ _mvn_cmdline_args }} --settings={{ conga_aem_packages_maven_settings }}"
+  when: conga_aem_packages_maven_settings is defined
 
 - name: "Set environment specific wcmio-content-package-maven-plugin version"
   set_fact:
@@ -22,8 +27,8 @@
     -Dvault.userId={{ conga_aem_packages_user }}
     -Dvault.password={{ conga_aem_packages_password }}
     -Dvault.delayAfterInstallSec={{ item.delayAfterInstallSec | default('0') }}
-    {{ _item_vault_force_define }}
     -Dvault.recursive={{ item.recursive | default('true') }}
+    {{ _mvn_cmdline_args }}
   args:
     chdir: "{{ conga_config_path }}"
   delegate_to: "{{ conga_aem_packages_maven_host }}"
