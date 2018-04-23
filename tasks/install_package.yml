@@ -4,12 +4,12 @@
 
 - name: "Set vault force define for '{{ item.path | basename }}' to {{ item.force }} in _mvn_cmdline_args"
   set_fact:
-    _mvn_cmdline: "{{ _mvn_cmdline_args }} -Dvault.force={{ item.force }}"
+    _mvn_cmdline_args: "{{ _mvn_cmdline_args }} -Dvault.force={{ item.force }}"
   when: item.force is defined
 
 - name: Add custom Maven settings to _mvn_cmdline_args.
   set_fact:
-    _mvn_cmdline: "{{ _mvn_cmdline_args }} --settings={{ conga_aem_packages_maven_settings }}"
+    _mvn_cmdline_args: "{{ _mvn_cmdline_args }} --settings={{ conga_aem_packages_maven_settings }}"
   when: conga_aem_packages_maven_settings is defined
 
 - name: "Set environment specific wcmio-content-package-maven-plugin version"
