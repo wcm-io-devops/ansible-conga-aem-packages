@@ -17,7 +17,8 @@ Name of the Maven executable to use.
 
 	conga_aem_packages_wcmio_content_package_maven_plugin_version: 1.6.0
 
-The version of the wcm.io content package maven plugin to use.
+The default version of the wcm.io content package maven plugin to use.
+If a version is specified for `io.wcm.maven.plugins:wcmio-content-package-maven-plugin` in the `conga_version_info` fact (provided by [conga-facts](https://github.com/wcm-io-devops/ansible-conga-facts)) this value will be overridden.
 
 	conga_aem_packages_wcmio_content_package_maven_plugin_changed_output: "Package installed"
 
@@ -31,28 +32,15 @@ The port of the target AEM instance. It defaults to the port configured in the [
 
 The  package manager service URL the Maven plugin uses to poll the package state.
 
-    conga_aem_bundle_status_url: "http://{{ inventory_hostname }}:{{ conga_aem_packages_port }}/system/console/bundles.json"
-
-Bundle status URL to poll while waiting for installation is complete when package is using a installer bundle (like AEM 6.3 SP2).
-
-    conga_aem_bundle_status_timeout: 600
-
-Timeout to wait (10 minutes per default) for installer bundle to be removed.
-
-    conga_aem_bundle_status_retry_delay: 10
-
-The retry delay for calling the `conga_aem_bundle_status_url`.
-
 Additionally, the role expects the `conga_packages` variable to be set by the [conga-facts](https://github.com/wcm-io-devops/ansible-conga-facts) role (on which this role depends) to the list of packages from the CONGA configuration model.
 
 ## Dependencies
 
 This role depends on the
 [conga-facts](https://github.com/wcm-io-devops/ansible-conga-facts) role
-for supplying the list of packages to install. It also depends on a role
-that provides a handler named "aem restart". This handler is normally
-provided by the
-[ansible-aem-service](https://github.com/wcm-io-devops/ansible-aem-service)
+for supplying the list of packages to install and the wcmio-content-package-maven-plugin to use.
+It also depends on a role that provides a handler named "aem restart". This handler is normally
+provided by the [ansible-aem-service](https://github.com/wcm-io-devops/ansible-aem-service)
 role, which is used by the conga ansible automation when using the
 [ansible-conga-aem-cms](https://github.com/wcm-io-devops/ansible-conga-aem-cms) role.
 
