@@ -17,7 +17,8 @@ Name of the Maven executable to use.
 
 	conga_aem_packages_wcmio_content_package_maven_plugin_version: 1.6.0
 
-The version of the wcm.io content package maven plugin to use.
+The default version of the wcm.io content package maven plugin to use.
+If a version is specified for `io.wcm.maven.plugins:wcmio-content-package-maven-plugin` in the `conga_version_info` fact (provided by [conga-facts](https://github.com/wcm-io-devops/ansible-conga-facts)) this value will be overridden.
 
 	conga_aem_packages_wcmio_content_package_maven_plugin_changed_output: "Package installed"
 
@@ -49,10 +50,9 @@ Additionally, the role expects the `conga_packages` variable to be set by the [c
 
 This role depends on the
 [conga-facts](https://github.com/wcm-io-devops/ansible-conga-facts) role
-for supplying the list of packages to install. It also depends on a role
-that provides a handler named "aem restart". This handler is normally
-provided by the
-[ansible-aem-service](https://github.com/wcm-io-devops/ansible-aem-service)
+for supplying the list of packages to install and the wcmio-content-package-maven-plugin to use.
+It also depends on a role that provides a handler named "aem restart". This handler is normally
+provided by the [ansible-aem-service](https://github.com/wcm-io-devops/ansible-aem-service)
 role, which is used by the conga ansible automation when using the
 [ansible-conga-aem-cms](https://github.com/wcm-io-devops/ansible-conga-aem-cms) role.
 
