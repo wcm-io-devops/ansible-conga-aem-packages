@@ -6,7 +6,7 @@ conga_aem_packages_maven_cmd: "{{ conga_maven_cmd | default('mvn') }}"
 # conga_aem_packages_maven_settings: ~/.m2/settings.xml
 
 # Version of the wcm.io content package maven plugin to use when no version info is provided by conga_facts
-conga_aem_packages_wcmio_content_package_maven_plugin_version: 1.6.0
+conga_aem_packages_wcmio_content_package_maven_plugin_version: 1.6.6
 # Output to expect when a package was actually installed/changed
 conga_aem_packages_wcmio_content_package_maven_plugin_changed_output: "Package installed"
 
