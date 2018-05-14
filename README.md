@@ -19,6 +19,10 @@ Host to execute Maven on
 
 Name of the Maven executable to use. 
 
+    conga_aem_packages_maven_opts: "-B -U"
+
+Maven options (run in batch mode, update snapshots)
+
     # conga_aem_packages_maven_settings: ~/.m2/settings.xml
 
 Path of a custom settings file to use when running Maven
