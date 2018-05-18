@@ -7,6 +7,11 @@
     _mvn_cmdline_args: "{{ _mvn_cmdline_args }} -Dvault.force={{ item.force }}"
   when: item.force is defined
 
+- name: "Set vault httpSocketTimeoutSec define for '{{ item.path | basename }}' to {{ item.httpSocketTimeoutSec }} in _mvn_cmdline_args"
+  set_fact:
+    _mvn_cmdline_args: "{{ _mvn_cmdline_args }} -Dvault.httpSocketTimeoutSec={{ item.httpSocketTimeoutSec }}"
+  when: item.httpSocketTimeoutSec is defined
+
 - name: Add custom Maven settings to _mvn_cmdline_args.
   set_fact:
     _mvn_cmdline_args: "{{ _mvn_cmdline_args }} --settings={{ conga_aem_packages_maven_settings }}"
