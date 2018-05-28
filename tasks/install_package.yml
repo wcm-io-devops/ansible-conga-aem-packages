@@ -1,6 +1,6 @@
 - name: "Set default '_mvn_cmdline_args'."
   set_fact:
-    _mvn_cmdline_args: ""
+    _mvn_cmdline_args: "{{ conga_aem_packages_maven_opts }}"
 
 - name: "Set vault force define for '{{ item.path | basename }}' to {{ item.force }} in _mvn_cmdline_args"
   set_fact:

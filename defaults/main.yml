@@ -2,8 +2,11 @@
 conga_aem_packages_maven_host: "{{ conga_host | default('localhost') }}"
 # Maven executable to use
 conga_aem_packages_maven_cmd: "{{ conga_maven_cmd | default('mvn') }}"
+# Maven options (run in batch mode, update snapshots)
+conga_aem_packages_maven_opts: "-B -U"
 # Path of a custom settings file to use when running Maven
 # conga_aem_packages_maven_settings: ~/.m2/settings.xml
+
 
 # Version of the wcm.io content package maven plugin to use when no version info is provided by conga_facts
 conga_aem_packages_wcmio_content_package_maven_plugin_version: 1.6.12
