@@ -30,7 +30,7 @@ Path of a custom settings file to use when running Maven
 	conga_aem_packages_wcmio_content_package_maven_plugin_version: 1.6.0
 
 The default version of the wcm.io content package maven plugin to use.
-If a version is specified for `io.wcm.maven.plugins:wcmio-content-package-maven-plugin` in the `conga_version_info` fact (provided by [conga-facts](https://github.com/wcm-io-devops/ansible-conga-facts)) this value will be overridden.
+If a version is specified for `io.wcm.maven.plugins:wcmio-content-package-maven-plugin` in the `conga_version_info` fact (provided by [wcm-io-devops.conga-facts](https://github.com/wcm-io-devops/ansible-conga-facts)) this value will be overridden.
 
 	conga_aem_packages_wcmio_content_package_maven_plugin_changed_output: "Package installed"
 
