@@ -45,7 +45,8 @@
   become: false
   register: _mvn_result
   changed_when: _mvn_result.stdout is defined and conga_aem_packages_wcmio_content_package_maven_plugin_changed_output in _mvn_result.stdout
-  #failed_when: "'BUILD FAILURE' in _mvn_result.stderr"
+  tags:
+    - skip_ansible_lint
 
 - name: Fail if Maven stdout is undefined.
   fail:
