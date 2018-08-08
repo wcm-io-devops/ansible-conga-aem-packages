@@ -47,13 +47,13 @@ The  package manager service URL the Maven plugin uses to poll the package state
 Additionally, the role expects the `conga_packages` variable to be set by the [wcm_io_devops.conga_facts](https://github.com/wcm-io-devops/ansible-conga-facts) role (on which this role depends) to the list of packages from the CONGA configuration model.
 
 Enables/disables standalone mode. When set to true the
-[aem-service](https://github.com/wcm-io-devops/ansible-aem-service) dependency is
+[wcm_io_devios.aem_service](https://github.com/wcm-io-devops/ansible-aem-service) dependency is
 enabled. Set this value to false when you have several aem-service
 dependencies in your play to avoid multiple AEM restarts.
 
 Additionally, the role expects the `conga_packages` variable to be set
 by the
-[conga-facts](https://github.com/wcm-io-devops/ansible-conga-facts) role
+[wcm_io_devios.conga_facts](https://github.com/wcm-io-devops/ansible-conga-facts) role
 (on which this role depends) to the list of packages from the CONGA
 configuration model.
 
