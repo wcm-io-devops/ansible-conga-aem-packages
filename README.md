@@ -36,6 +36,11 @@ If a version is specified for `io.wcm.maven.plugins:wcmio-content-package-maven-
 
 The string to looks for in the output of the package plugin to determine if a package was actually installed or skipped because it was already installed. This is important to avoid unnecessary lengthy restarts (e.g. when a service pack is part of package list).
 
+    conga_aem_packages_user: "{{ conga_config.quickstart.adminUser.username | default('admin')}}"
+    conga_aem_packages_password: "{{ conga_config.quickstart.adminUser.password | default('admin')}}"
+
+Username and password to use for installing the package.
+
 	conga_aem_packages_port: "{{ conga_config.quickstart.port }}"
 
 The port of the target AEM instance. It defaults to the port configured in the [`aem-cms`](https://github.com/wcm-io-devops/conga-aem-definitions/blob/develop/conga-aem-definitions/src/main/roles/aem-cms.yaml) role to make it automatically work for both author and publisher instances (provided that the package role inherits from this role so that it can access its configuration).
