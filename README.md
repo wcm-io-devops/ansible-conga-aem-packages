@@ -47,9 +47,8 @@ The port of the target AEM instance. It defaults to the port configured in the [
 
 	conga_aem_packages_service_url: "http://{{ inventory_hostname }}:{{ conga_aem_packages_port }}/crx/packmgr/service"
 
-The package manager service URL the Maven plugin uses to poll the package state.
-
-Additionally, the role expects the `conga_packages` variable to be set by the [wcm_io_devops.conga_facts](https://github.com/wcm-io-devops/ansible-conga-facts) role (on which this role depends) to the list of packages from the CONGA configuration model.
+The package manager service URL the Maven plugin uses to poll the
+package state.
 
     conga_aem_packages_maven_logging: false
 
