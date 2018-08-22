@@ -17,6 +17,11 @@
     _mvn_cmdline_args: "{{ _mvn_cmdline_args }} --settings={{ conga_aem_packages_maven_settings }}"
   when: conga_aem_packages_maven_settings is defined
 
+- name: Add command line arguments for logging to file.
+  set_fact:
+    _mvn_cmdline_args: "{{ _mvn_cmdline_args }} | tee -a {{ conga_aem_packages_maven_logfile }}"
+  when: conga_aem_packages_maven_logging == true
+
 - name: "Set environment specific wcmio-content-package-maven-plugin version"
   set_fact:
     _conga_aem_packages_wcmio_content_package_maven_plugin_version: "{{ conga_version_info['io.wcm.maven.plugins:wcmio-content-package-maven-plugin'] | default(conga_aem_packages_wcmio_content_package_maven_plugin_version)}}"
