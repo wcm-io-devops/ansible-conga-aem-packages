@@ -26,3 +26,6 @@ conga_aem_packages_maven_logging: false
 
 # The path to the log file, per default this is placed in the configuration directory of the conga node
 conga_aem_packages_maven_logfile: "{{ conga_config_path }}/conga-aem-packages-mvn.log"
+
+# Enables/disables standalone mode
+conga_aem_packages_standalone: true

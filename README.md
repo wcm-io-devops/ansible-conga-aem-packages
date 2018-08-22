@@ -47,9 +47,8 @@ The port of the target AEM instance. It defaults to the port configured in the [
 
 	conga_aem_packages_service_url: "http://{{ inventory_hostname }}:{{ conga_aem_packages_port }}/crx/packmgr/service"
 
-The package manager service URL the Maven plugin uses to poll the package state.
-
-Additionally, the role expects the `conga_packages` variable to be set by the [wcm_io_devops.conga_facts](https://github.com/wcm-io-devops/ansible-conga-facts) role (on which this role depends) to the list of packages from the CONGA configuration model.
+The package manager service URL the Maven plugin uses to poll the
+package state.
 
     conga_aem_packages_maven_logging: false
 
@@ -59,15 +58,28 @@ When set to true the mvn stdout will be tee'd into a log file for debug purposes
 
 The path to the log file, per default this is placed in the configuration directory of the conga node.
 
+    conga_aem_packages_standalone: true 
+
+Enables/disables standalone mode. When set to true the
+[wcm_io_devios.aem_service](https://github.com/wcm-io-devops/ansible-aem-service) dependency is
+enabled. Set this value to false when you have several aem-service
+dependencies in your play to avoid multiple AEM restarts.
+
+Additionally, the role expects the `conga_packages` variable to be set
+by the
+[wcm_io_devios.conga_facts](https://github.com/wcm-io-devops/ansible-conga-facts) role
+(on which this role depends) to the list of packages from the CONGA
+configuration model.
+
 ## Dependencies
 
 This role depends on the
 [wcm_io_devops.conga_facts](https://github.com/wcm-io-devops/ansible-conga-facts) role
-for supplying the list of packages to install and the wcmio-content-package-maven-plugin to use.
-It also depends on a role that provides a handler named "aem restart". This handler is normally
-provided by the [wcm_io_devops.aem_service](https://github.com/wcm-io-devops/ansible-aem-service)
-role, which is used by the conga ansible automation when using the
-[wcm_io_devops.conga_aem_cms](https://github.com/wcm-io-devops/ansible-conga-aem-cms) role.
+for supplying the list of packages to install. In the standalone mode it
+also depends on the
+[wcm_io_devops.aem_service](https://github.com/wcm-io-devops/ansible-aem-service) role
+for ensuring that the target AEM instance is started and restarting it
+if the package metadata declares that it is required.
 
 ## Example Playbook
 
