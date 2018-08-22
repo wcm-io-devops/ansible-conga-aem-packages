@@ -20,3 +20,9 @@ conga_aem_packages_password: "{{ conga_config.quickstart.adminUser.password | de
 # Port and package manager service URL of the AEM instance
 conga_aem_packages_port: "{{ conga_config.quickstart.port }}"
 conga_aem_packages_service_url: "http://{{ inventory_hostname }}:{{ conga_aem_packages_port }}/crx/packmgr/service"
+
+# When set to true the mvn stdout will be tee'd into a log file for debug purposes
+conga_aem_packages_maven_logging: false
+
+# The path to the log file, per default this is placed in the configuration directory of the conga node
+conga_aem_packages_maven_logfile: "{{ conga_config_path }}/conga-aem-packages-mvn.log"
