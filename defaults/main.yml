@@ -29,3 +29,7 @@ conga_aem_packages_maven_logfile: "conga-aem-packages-mvn.log"
 
 # Enables/disables standalone mode
 conga_aem_packages_standalone: true
+
+# When set the deployment for each matching package has to be confirmed by the user.
+#conga_aem_packages_interactive_packages:
+# - AEM-6.4.2.0-6.4.2.zip # prompt for package with the name 'AEM-6.4.2.0-6.4.2.zip'

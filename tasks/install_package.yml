@@ -28,6 +28,13 @@
   changed_when:
     _conga_aem_packages_wcmio_content_package_maven_plugin_version != conga_aem_packages_wcmio_content_package_maven_plugin_version
 
+- name: "Use interactive mode for '{{ item.path | basename }}'"
+  pause:
+    prompt: "Continue with deploying {{ item.path | basename }}?"
+  when:
+    - conga_aem_packages_interactive_packages is defined
+    - (item.path | basename) in conga_aem_packages_interactive_packages
+
 - name: "Deploy AEM package: {{ item.path | basename }}"
   shell: >
     {{ conga_aem_packages_maven_cmd }}
