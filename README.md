@@ -59,9 +59,9 @@ package state.
 
 When set to true the mvn stdout will be tee'd into a log file for debug purposes.
 
-    conga_aem_packages_maven_logfile: "{{ conga_config_path }}/conga-aem-packages-mvn.log"
+    conga_aem_packages_maven_logfile: "conga-aem-packages-mvn.log"
 
-The path to the log file, per default this is placed in the configuration directory of the conga node.
+The path to the log file, location is relative to 'conga_config_path', which is the directory of the conga node.
 
     conga_aem_packages_standalone: true 
 
