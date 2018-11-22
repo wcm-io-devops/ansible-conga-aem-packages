@@ -70,6 +70,12 @@ Enables/disables standalone mode. When set to true the
 enabled. Set this value to false when you have several aem-service
 dependencies in your play to avoid multiple AEM restarts.
 
+    #conga_aem_packages_interactive_packages:
+    # - AEM-6.4.2.0-6.4.2.zip # prompt for package with the name 'AEM-6.4.2.0-6.4.2.zip'
+
+When set the deployment for each matching package has to be confirmed by
+the user.
+
 Additionally, the role expects the `conga_packages` variable to be set
 by the
 [wcm_io_devios.conga_facts](https://github.com/wcm-io-devops/ansible-conga-facts) role
