@@ -36,5 +36,5 @@ dependencies:
       version: 1.0.0,
       aem_service_port: "{{ conga_aem_packages_port }}",
       aem_service_name: "{{ aem_cms_service_name }}",
-      when: conga_aem_packages_standalone == true
+      when: conga_aem_packages_standalone
     }
