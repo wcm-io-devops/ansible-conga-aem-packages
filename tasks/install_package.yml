@@ -24,12 +24,11 @@
 
 - name: "Set environment specific wcmio-content-package-maven-plugin version"
   set_fact:
-    _conga_aem_packages_wcmio_content_package_maven_plugin_version:
+    _content_package_maven_plugin_version:
       "{{ conga_version_info['io.wcm.maven.plugins:wcmio-content-package-maven-plugin']
       | default(conga_aem_packages_wcmio_content_package_maven_plugin_version) }}"
   changed_when:
-    _conga_aem_packages_wcmio_content_package_maven_plugin_version !=
-    conga_aem_packages_wcmio_content_package_maven_plugin_version
+    _content_package_maven_plugin_version != conga_aem_packages_wcmio_content_package_maven_plugin_version
 
 - name: "Use interactive mode for '{{ item.path | basename }}'"
   pause:
@@ -41,8 +40,7 @@
 - name: "Deploy AEM package: {{ item.path | basename }}"
   shell: >
     {{ conga_aem_packages_maven_cmd }}
-    io.wcm.maven.plugins:wcmio-content-package-maven-plugin:
-    {{ _conga_aem_packages_wcmio_content_package_maven_plugin_version }}:install
+    io.wcm.maven.plugins:wcmio-content-package-maven-plugin:{{ _content_package_maven_plugin_version }}:install
     -Dvault.serviceURL={{ conga_aem_packages_service_url }}
     -Dvault.file={{ item.path }}
     -Dvault.userId={{ conga_aem_packages_user }}
@@ -61,10 +59,10 @@
   tags:
     - skip_ansible_lint
 
-- name: Fail if Maven stdout is undefined.
+- name: Fail if Maven stdout is undefined or Maven build failed.
   fail:
     msg: "{{ _mvn_result }}"
-  when: _mvn_result.stdout is undefined
+  when: _mvn_result.stdout is not defined or _mvn_result.stdout.find('BUILD FAILURE') != -1
 
   # Restart if the package has actually been installed and it has been declared as necessary and
   # allow overriding the requiresRestart property from the package metadata in the CONGA configuration
