@@ -44,7 +44,7 @@
     -Dvault.serviceURL={{ conga_aem_packages_service_url }}
     -Dvault.file={{ item.path }}
     -Dvault.userId={{ conga_aem_packages_user }}
-    -Dvault.password={{ conga_aem_packages_password | quote}}
+    -Dvault.password={{ conga_aem_packages_password | quote }}
     -Dvault.delayAfterInstallSec={{ item.delayAfterInstallSec | default('0') }}
     -Dvault.recursive={{ item.recursive | default('true') }}
     {{ _mvn_cmdline_args }}
