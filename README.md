@@ -9,7 +9,7 @@ This role provides a generic, reusable way to install all AEM packages generated
 
 ## Requirements
 
-This role requires Ansible 2.0 or higher. Maven must be installed since the role uses the [wcm.io Content Package Maven Plugin](http://wcm.io/tooling/maven/plugins/wcmio-content-package-maven-plugin/) for the actual package installation, 
+This role requires Ansible 2.7 or higher. Maven must be installed since the role uses the [wcm.io Content Package Maven Plugin](http://wcm.io/tooling/maven/plugins/wcmio-content-package-maven-plugin/) for the actual package installation,
 
 
 ## Role Variables
