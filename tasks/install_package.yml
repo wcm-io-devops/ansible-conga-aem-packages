@@ -67,12 +67,11 @@
   # Restart if the package has actually been installed and it has been declared as necessary and
   # allow overriding the requiresRestart property from the package metadata in the CONGA configuration
 - name: Restart AEM if required by package metadata.
-  command: /bin/true
-  notify: restart aem
+  include_role:
+    name: wcm_io_devops.aem_service
+  vars:
+    aem_service_state: restarted
   when: (conga_aem_packages_wcmio_content_package_maven_plugin_changed_output in _mvn_result.stdout) and
         (item.requiresRestart |
          default(item.aemContentPackageProperties.requiresRestart is defined and
          item.aemContentPackageProperties.requiresRestart | bool))
-
-- name: Flush pending (restart) handlers before installation of next package.
-  meta: flush_handlers
