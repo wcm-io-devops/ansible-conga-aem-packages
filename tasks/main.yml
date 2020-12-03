@@ -1,6 +1,7 @@
-- name: Setup packages list.
+- name: Setup packages list and result facts.
   set_fact:
     _packages: "{{ packages | default(conga_packages) }}"
+    conga_aem_packages_aem_restarted: false
 
 - name: "Deploy AEM packages for role: {{ conga_role }}"
   include_tasks: install_package.yml
