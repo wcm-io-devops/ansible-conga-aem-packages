@@ -82,7 +82,7 @@ by the
 role (on which this role depends) to the list of packages from the CONGA
 configuration model.
 
-# Result facts
+## Result facts
 
     conga_aem_packages_aem_restarted
 
