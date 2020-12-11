@@ -78,9 +78,16 @@ the user.
 
 Additionally, the role expects the `conga_packages` variable to be set
 by the
-[wcm_io_devios.conga_facts](https://github.com/wcm-io-devops/ansible-conga-facts) role
-(on which this role depends) to the list of packages from the CONGA
+[wcm_io_devios.conga_facts](https://github.com/wcm-io-devops/ansible-conga-facts)
+role (on which this role depends) to the list of packages from the CONGA
 configuration model.
+
+## Result facts
+
+    conga_aem_packages_aem_restarted
+
+This fact has the value `true` when the AEM instance was restarted
+during package installation.
 
 ## Dependencies
 

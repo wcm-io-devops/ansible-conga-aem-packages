@@ -9,7 +9,7 @@ conga_aem_packages_maven_opts: "-B -U"
 
 
 # Version of the wcm.io content package maven plugin to use when no version info is provided by conga_facts
-conga_aem_packages_wcmio_content_package_maven_plugin_version: 1.7.2
+conga_aem_packages_wcmio_content_package_maven_plugin_version: 1.8.4
 # Output to expect when a package was actually installed/changed
 conga_aem_packages_wcmio_content_package_maven_plugin_changed_output: "Package installed"
 
