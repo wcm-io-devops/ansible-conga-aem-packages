@@ -1,3 +1,4 @@
+---
 - name: "Set default '_mvn_cmdline_args'."
   set_fact:
     _mvn_cmdline_args: "{{ conga_aem_packages_maven_opts }}"
@@ -70,15 +71,15 @@
 
     # Restart if the package has actually been installed and it has been declared as necessary and
     # allow overriding the requiresRestart property from the package metadata in the CONGA configuration
-  - name: Restart AEM if required by package metadata.
-    include_role:
-      name: wcm_io_devops.aem_service
-    vars:
-      aem_service_state: restarted
+    - name: Restart AEM if required by package metadata.
+      include_role:
+        name: wcm_io_devops.aem_service
+      vars:
+        aem_service_state: restarted
 
-  - name: "Set 'conga_aem_packages_aem_restarted' to true when changed."
-    set_fact:
-      conga_aem_packages_aem_restarted: true
+    - name: "Set 'conga_aem_packages_aem_restarted' to true when changed."
+      set_fact:
+        conga_aem_packages_aem_restarted: true
 
   when: (conga_aem_packages_wcmio_content_package_maven_plugin_changed_output in _mvn_result.stdout) and
         (item.requiresRestart |

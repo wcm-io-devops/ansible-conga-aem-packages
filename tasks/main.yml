@@ -1,3 +1,4 @@
+---
 - name: Setup packages list and result facts.
   set_fact:
     _packages: "{{ packages | default(conga_packages) }}"
