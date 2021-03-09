@@ -8,7 +8,8 @@
     _mvn_cmdline_args: "{{ _mvn_cmdline_args }} -Dvault.force={{ package.force }}"
   when: package.force is defined
 
-- name: "Set vault httpSocketTimeoutSec define for '{{ package.path | basename }}' to {{ package.httpSocketTimeoutSec }}"
+- name: >
+    Set vault httpSocketTimeoutSec define for '{{ package.path | basename }}' to {{ package.httpSocketTimeoutSec }}
   set_fact:
     _mvn_cmdline_args: "{{ _mvn_cmdline_args }} -Dvault.httpSocketTimeoutSec={{ package.httpSocketTimeoutSec }}"
   when: package.httpSocketTimeoutSec is defined
