@@ -50,6 +50,10 @@ Username and password to use for installing the package.
 
 The port of the target AEM instance. It defaults to the port configured in the [`aem-cms`](https://github.com/wcm-io-devops/conga-aem-definitions/blob/develop/conga-aem-definitions/src/main/roles/aem-cms.yaml) role to make it automatically work for both author and publisher instances (provided that the package role inherits from this role so that it can access its configuration).
 
+    conga_aem_packages_aem_service_name: "{{ aem_cms_service_name }}"
+
+The name of the aem service, required in order to restart the instance. Since this role is designed to work together with wcm_io_devops.aem_cms we reuse the value of `aem_cms_service_name` here.
+
 	conga_aem_packages_service_url: "http://{{ inventory_hostname }}:{{ conga_aem_packages_port }}/crx/packmgr/service"
 
 The package manager service URL the Maven plugin uses to poll the

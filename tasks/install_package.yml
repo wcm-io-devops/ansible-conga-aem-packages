@@ -77,7 +77,7 @@
       vars:
         aem_service_state: restarted
         aem_service_port: "{{ conga_aem_packages_port }}"
-        aem_service_name: "{{ aem_cms_service_name }}"
+        aem_service_name: "{{ conga_aem_packages_aem_service_name }}"
 
     - name: "Set 'conga_aem_packages_aem_restarted' to true when changed."
       set_fact:
