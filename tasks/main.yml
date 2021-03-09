@@ -6,4 +6,6 @@
 
 - name: "Deploy AEM packages for role: {{ conga_role }}"
   include_tasks: install_package.yml
+  loop_control:
+    loop_var: package
   with_items: "{{ _packages }}"

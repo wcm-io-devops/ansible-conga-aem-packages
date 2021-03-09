@@ -3,15 +3,15 @@
   set_fact:
     _mvn_cmdline_args: "{{ conga_aem_packages_maven_opts }}"
 
-- name: "Set vault force define for '{{ item.path | basename }}' to {{ item.force }} in _mvn_cmdline_args"
+- name: "Set vault force define for '{{ package.path | basename }}' to {{ package.force }} in _mvn_cmdline_args"
   set_fact:
-    _mvn_cmdline_args: "{{ _mvn_cmdline_args }} -Dvault.force={{ item.force }}"
-  when: item.force is defined
+    _mvn_cmdline_args: "{{ _mvn_cmdline_args }} -Dvault.force={{ package.force }}"
+  when: package.force is defined
 
-- name: "Set vault httpSocketTimeoutSec define for '{{ item.path | basename }}' to {{ item.httpSocketTimeoutSec }}"
+- name: "Set vault httpSocketTimeoutSec define for '{{ package.path | basename }}' to {{ package.httpSocketTimeoutSec }}"
   set_fact:
-    _mvn_cmdline_args: "{{ _mvn_cmdline_args }} -Dvault.httpSocketTimeoutSec={{ item.httpSocketTimeoutSec }}"
-  when: item.httpSocketTimeoutSec is defined
+    _mvn_cmdline_args: "{{ _mvn_cmdline_args }} -Dvault.httpSocketTimeoutSec={{ package.httpSocketTimeoutSec }}"
+  when: package.httpSocketTimeoutSec is defined
 
 - name: Add custom Maven settings to _mvn_cmdline_args.
   set_fact:
@@ -31,23 +31,23 @@
   changed_when:
     _content_package_maven_plugin_version != conga_aem_packages_wcmio_content_package_maven_plugin_version
 
-- name: "Use interactive mode for '{{ item.path | basename }}'"
+- name: "Use interactive mode for '{{ package.path | basename }}'"
   pause:
-    prompt: "Continue with deploying {{ item.path | basename }}?"
+    prompt: "Continue with deploying {{ package.path | basename }}?"
   when:
     - conga_aem_packages_interactive_packages is defined
-    - (item.path | basename) in conga_aem_packages_interactive_packages
+    - (package.path | basename) in conga_aem_packages_interactive_packages
 
-- name: "Deploy AEM package: {{ item.path | basename }}"
+- name: "Deploy AEM package: {{ package.path | basename }}"
   shell: >
     {{ conga_aem_packages_maven_cmd }}
     io.wcm.maven.plugins:wcmio-content-package-maven-plugin:{{ _content_package_maven_plugin_version }}:install
     -Dvault.serviceURL={{ conga_aem_packages_service_url }}
-    -Dvault.file={{ item.path }}
+    -Dvault.file={{ package.path }}
     -Dvault.userId={{ conga_aem_packages_user }}
     -Dvault.password={{ conga_aem_packages_password | quote }}
-    -Dvault.delayAfterInstallSec={{ item.delayAfterInstallSec | default('0') }}
-    -Dvault.recursive={{ item.recursive | default('true') }}
+    -Dvault.delayAfterInstallSec={{ package.delayAfterInstallSec | default('0') }}
+    -Dvault.recursive={{ package.recursive | default('true') }}
     {{ _mvn_cmdline_args }}
   args:
     chdir: "{{ conga_config_path }}"
@@ -84,6 +84,6 @@
         conga_aem_packages_aem_restarted: true
 
   when: (conga_aem_packages_wcmio_content_package_maven_plugin_changed_output in _mvn_result.stdout) and
-        (item.requiresRestart |
-         default(item.aemContentPackageProperties.requiresRestart is defined and
-         item.aemContentPackageProperties.requiresRestart | bool))
+        (package.requiresRestart |
+         default(package.aemContentPackageProperties.requiresRestart is defined and
+         package.aemContentPackageProperties.requiresRestart | bool))
