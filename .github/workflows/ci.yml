@@ -46,6 +46,10 @@ jobs:
       - name: Create ansible.cfg
         run: "printf '[defaults]\nroles_path=./tests/requirements/:../' > ansible.cfg"
 
+      - name: Use old galaxy server
+        run: "printf '[galaxy]\nserver=https://old-galaxy.ansible.com/' >> ansible.cfg"
+        if: matrix.ANSIBLE_VERSION == '==2.7.*'
+
       - name: Set up Python 3.
         uses: actions/setup-python@v2
         with:
