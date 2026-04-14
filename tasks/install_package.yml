@@ -63,7 +63,7 @@
 - name: Fail if Maven stdout is undefined or Maven build has failed.
   fail:
     msg: "{{ _mvn_result }}"
-  when: _mvn_result.stdout is not defined or _mvn_result.stdout.find('BUILD FAILURE') != -1
+  when: _mvn_result.stdout is not defined or _mvn_result.stdout.find('BUILD FAILURE') != -1 or _mvn_result.stdout.find('[ERROR]') != -1
 
 
   # execute tasks required on restart
