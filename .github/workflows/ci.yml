@@ -50,6 +50,9 @@ jobs:
         run: "printf '[galaxy]\nserver=https://old-galaxy.ansible.com/' >> ansible.cfg"
         if: matrix.ANSIBLE_VERSION == '==2.7.*'
 
+      - name: Debug
+        run: "cat ansible.cfg"
+
       - name: Set up Python 3.
         uses: actions/setup-python@v2
         with:
