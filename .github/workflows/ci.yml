@@ -44,10 +44,10 @@ jobs:
             ${{ runner.os }}-pip-${{ matrix.ANSIBLE_VERSION }}-
 
       - name: Create ansible.cfg
-        run: "printf '[defaults]\nroles_path=./tests/requirements/:../' > ansible.cfg"
+        run: "printf '[defaults]\nroles_path=./tests/requirements/:../'\n > ansible.cfg"
 
       - name: Use old galaxy server
-        run: "printf '[galaxy]\nserver=https://old-galaxy.ansible.com/' >> ansible.cfg"
+        run: "printf '\n[galaxy]\nserver=https://old-galaxy.ansible.com/' >> ansible.cfg"
         if: matrix.ANSIBLE_VERSION == '==2.7.*'
 
       - name: Debug
