@@ -3,19 +3,15 @@
   ansible.builtin.set_fact:
     _mvn_cmdline_args: "{{ conga_aem_packages_maven_opts }}"
 
-- name: "Set vault force define for '{{ pkg.path | basename }}' to {{ pkg.force }} in _mvn_cmdline_args"
+- name: Set vault force define in _mvn_cmdline_args to {{ pkg.force }}
   ansible.builtin.set_fact:
     _mvn_cmdline_args: "{{ _mvn_cmdline_args }} -Dvault.force={{ pkg.force }}"
   when: pkg.force is defined
-  tags:
-    - skip_ansible_lint
 
-- name: "Set vault httpSocketTimeoutSec define for '{{ pkg.path | basename }}' to {{ pkg.httpSocketTimeoutSec }}"
+- name: Set vault httpSocketTimeoutSec define in _mvn_cmdline_args to {{ pkg.httpSocketTimeoutSec }}
   ansible.builtin.set_fact:
     _mvn_cmdline_args: "{{ _mvn_cmdline_args }} -Dvault.httpSocketTimeoutSec={{ pkg.httpSocketTimeoutSec }}"
   when: pkg.httpSocketTimeoutSec is defined
-  tags:
-    - skip_ansible_lint
 
 - name: Add custom Maven settings to _mvn_cmdline_args.
   ansible.builtin.set_fact:
