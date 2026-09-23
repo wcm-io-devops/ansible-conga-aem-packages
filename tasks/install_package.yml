@@ -1,30 +1,30 @@
 ---
 - name: "Set default '_mvn_cmdline_args'."
-  set_fact:
+  ansible.builtin.set_fact:
     _mvn_cmdline_args: "{{ conga_aem_packages_maven_opts }}"
 
-- name: "Set vault force define for '{{ pkg.path | basename }}' to {{ pkg.force }} in _mvn_cmdline_args"
-  set_fact:
+- name: Set vault force define in _mvn_cmdline_args to {{ pkg.force }}
+  ansible.builtin.set_fact:
     _mvn_cmdline_args: "{{ _mvn_cmdline_args }} -Dvault.force={{ pkg.force }}"
   when: pkg.force is defined
 
-- name: "Set vault httpSocketTimeoutSec define for '{{ pkg.path | basename }}' to {{ pkg.httpSocketTimeoutSec }}"
-  set_fact:
+- name: Set vault httpSocketTimeoutSec define in _mvn_cmdline_args to {{ pkg.httpSocketTimeoutSec }}
+  ansible.builtin.set_fact:
     _mvn_cmdline_args: "{{ _mvn_cmdline_args }} -Dvault.httpSocketTimeoutSec={{ pkg.httpSocketTimeoutSec }}"
   when: pkg.httpSocketTimeoutSec is defined
 
 - name: Add custom Maven settings to _mvn_cmdline_args.
-  set_fact:
+  ansible.builtin.set_fact:
     _mvn_cmdline_args: "{{ _mvn_cmdline_args }} --settings={{ conga_aem_packages_maven_settings }}"
   when: conga_aem_packages_maven_settings is defined
 
 - name: Add command line arguments for logging to file.
-  set_fact:
+  ansible.builtin.set_fact:
     _mvn_cmdline_args: "{{ _mvn_cmdline_args }} | tee -a {{ conga_aem_packages_maven_logfile }}"
   when: conga_aem_packages_maven_logging
 
 - name: "Set environment specific wcmio-content-package-maven-plugin version"
-  set_fact:
+  ansible.builtin.set_fact:
     _content_package_maven_plugin_version:
       "{{ conga_version_info['io.wcm.maven.plugins:wcmio-content-package-maven-plugin']
       | default(conga_aem_packages_wcmio_content_package_maven_plugin_version) }}"
@@ -32,7 +32,7 @@
     _content_package_maven_plugin_version != conga_aem_packages_wcmio_content_package_maven_plugin_version
 
 - name: "Use interactive mode for '{{ pkg.path | basename }}'"
-  pause:
+  ansible.builtin.pause:
     prompt: "Continue with deploying {{ pkg.path | basename }}?"
   when:
     - conga_aem_packages_interactive_packages is defined
@@ -61,18 +61,23 @@
     - skip_ansible_lint
 
 - name: Fail if Maven stdout is undefined or Maven build has failed.
-  fail:
+  ansible.builtin.fail:
     msg: "{{ _mvn_result }}"
   when: _mvn_result.stdout is not defined or _mvn_result.stdout.find('BUILD FAILURE') != -1 or _mvn_result.stdout.find('[ERROR]') != -1
 
 
   # execute tasks required on restart
-- block:
+- name: Restart AEM if package installation requires it
+  when: (conga_aem_packages_wcmio_content_package_maven_plugin_changed_output in _mvn_result.stdout) and
+        (pkg.requiresRestart |
+         default(pkg.aemContentPackageProperties.requiresRestart is defined and
+         pkg.aemContentPackageProperties.requiresRestart | bool))
+  block:
 
     # Restart if the package has actually been installed and it has been declared as necessary and
     # allow overriding the requiresRestart property from the package metadata in the CONGA configuration
     - name: Restart AEM if required by package metadata.
-      include_role:
+      ansible.builtin.include_role:
         name: wcm_io_devops.aem_service
       vars:
         aem_service_state: restarted
@@ -80,10 +85,5 @@
         aem_service_name: "{{ conga_aem_packages_aem_service_name }}"
 
     - name: "Set 'conga_aem_packages_aem_restarted' to true when changed."
-      set_fact:
+      ansible.builtin.set_fact:
         conga_aem_packages_aem_restarted: true
-
-  when: (conga_aem_packages_wcmio_content_package_maven_plugin_changed_output in _mvn_result.stdout) and
-        (pkg.requiresRestart |
-         default(pkg.aemContentPackageProperties.requiresRestart is defined and
-         pkg.aemContentPackageProperties.requiresRestart | bool))

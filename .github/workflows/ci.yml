@@ -23,8 +23,8 @@ jobs:
       matrix:
         include:
           - NAME: min_ansible_version
-            ANSIBLE_VERSION: "==2.7.*"
-            ANSIBLE_LINT_VERSION: "==4.2.*"
+            ANSIBLE_VERSION: "==2.10.*"
+            ANSIBLE_LINT_VERSION: "==5.*"
           - NAME: latest
             ANSIBLE_VERSION: ""
             ANSIBLE_LINT_VERSION: ""
@@ -45,10 +45,6 @@ jobs:
 
       - name: Create ansible.cfg
         run: "printf '[defaults]\nroles_path=./tests/requirements/:../\n' > ansible.cfg"
-
-      - name: Use old galaxy server
-        run: "printf '\n[galaxy]\nserver=https://old-galaxy.ansible.com/' >> ansible.cfg"
-        if: matrix.ANSIBLE_VERSION == '==2.7.*'
 
       - name: Debug
         run: "cat ansible.cfg"
