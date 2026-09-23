@@ -1,11 +1,11 @@
 ---
 - name: Setup packages list and result facts.
-  set_fact:
+  ansible.builtin.set_fact:
     _packages: "{{ packages | default(conga_packages) }}"
     conga_aem_packages_aem_restarted: false
 
 - name: "Deploy AEM packages for role: {{ conga_role }}"
-  include_tasks: install_package.yml
+  ansible.builtin.include_tasks: install_package.yml
   loop_control:
     loop_var: pkg
   with_items: "{{ _packages }}"
